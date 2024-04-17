@@ -8,39 +8,35 @@ interface BoardProps {
 
 }
 
-
 export default function Board({ currentPlayer, setCurrentPlayer }: BoardProps) {
 
-
-    const [cells, setCells] = useState([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    //array med alla celler initieras som toma strings som markerar att dom är lediga.
+    const [cells, setCells] = useState(["", "", "", "", "", "", "", "", ""]);
 
     return (
 
         <>
-            <Square
-                currentPlayer={currentPlayer} setCurrentPlayer={setCurrentPlayer} />
-            <Square
-                currentPlayer={currentPlayer}
-                setCurrentPlayer={setCurrentPlayer} />
-            <Square
-                currentPlayer={currentPlayer}
-                setCurrentPlayer={setCurrentPlayer} /> <br />
-            <Square
-                currentPlayer={currentPlayer} setCurrentPlayer={setCurrentPlayer} />
-            <Square
-                currentPlayer={currentPlayer}
-                setCurrentPlayer={setCurrentPlayer} />
-            <Square
-                currentPlayer={currentPlayer}
-                setCurrentPlayer={setCurrentPlayer} /> <br />
-            <Square
-                currentPlayer={currentPlayer} setCurrentPlayer={setCurrentPlayer} />
-            <Square
-                currentPlayer={currentPlayer}
-                setCurrentPlayer={setCurrentPlayer} />
-            <Square
-                currentPlayer={currentPlayer}
-                setCurrentPlayer={setCurrentPlayer} /> <br />
+            {/* rendera ut varje cell: */}
+
+            {cells.map((__, index) => {
+                return (
+                    <span key={index}>
+                        <Square
+                            currentPlayer={currentPlayer}
+                            setCurrentPlayer={setCurrentPlayer}
+                            currentCellIndex={index}
+                            cells={cells}
+                            setCells={setCells}
+                        />
+
+                        {/* Radbrytning omd et är dags för det..... */}
+                        {index === 2 || index === 5 ? <br /> : null}
+
+                    </span>
+                )
+
+
+            })}
         </>
     )
 

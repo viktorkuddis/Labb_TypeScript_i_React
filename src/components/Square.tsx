@@ -1,47 +1,48 @@
-import { useState } from "react";
-
-
 
 interface SquareProps {
     currentPlayer: string;
-    setCurrentPlayer: React.Dispatch<React.SetStateAction<string>>
+    setCurrentPlayer: React.Dispatch<React.SetStateAction<string>>;
+    cells: string[]
+    setCells: React.Dispatch<React.SetStateAction<string[]>>;
+    currentCellIndex: number;
 
 }
 
 
-
-
-
-
-export default function Square({ currentPlayer, setCurrentPlayer }: SquareProps) {
-
-
-    const [claimedBy, setClaimedBy] = useState("")
-
+export default function Square({
+    currentPlayer,
+    setCurrentPlayer,
+    cells,
+    setCells,
+    currentCellIndex }: SquareProps) {
 
     function handleSquareClick() {
 
+        // om cellen är fri så går det att ta den...
+        if (cells[currentCellIndex] === "") {
 
-        // om rutan inte redan är claimed så går dett att claima...
-        if (claimedBy === "") {
-            //sätter värdet som kommer skrivas ut i rutan:
-            setClaimedBy(currentPlayer);
-
-            //ändrar vems tur det är:
+            //sätter nya arrayen av celler:
+            setCells(cells.map((cell, index) => {
+                if (currentCellIndex == index) {
+                    return currentPlayer
+                } else {
+                    return cell
+                }
+            }))
+            //Ändrar vems tur det är
             setCurrentPlayer(currentPlayer === "X" ? "O" : "X")
 
         } else {
-            alert(" HÖRRUU! Den ruran var redan tagen!")
+            //om cellen var upptagen:
+            alert(" HÖRRUU! Den uran var redan tagen!")
         }
-
     }
 
     return (
-        <>
-            <div className="square" onClick={handleSquareClick} >
-                <p>{claimedBy}</p>
 
-            </div >
-        </>
+        <div className="square" onClick={handleSquareClick} >
+            <p>{cells[currentCellIndex]}</p>
+        </div >
+
     )
 }
