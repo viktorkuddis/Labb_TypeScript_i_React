@@ -5,13 +5,16 @@ import Square from "./Square"
 interface BoardProps {
     currentPlayer: string;
     setCurrentPlayer: React.Dispatch<React.SetStateAction<string>>;
+    cells: string[];
+    setCells: React.Dispatch<React.SetStateAction<string[]>>
+
 
 }
 
-export default function Board({ currentPlayer, setCurrentPlayer }: BoardProps) {
+export default function Board({ currentPlayer, setCurrentPlayer, cells, setCells }: BoardProps) {
 
-    //array med alla celler initieras som toma strings som markerar att dom är lediga.
-    const [cells, setCells] = useState(["", "", "", "", "", "", "", "", ""]);
+    // //array med alla celler initieras som toma strings som markerar att dom är lediga.
+    // const [cells, setCells] = useState(["", "", "", "", "", "", "", "", ""]);
 
     return (
 
